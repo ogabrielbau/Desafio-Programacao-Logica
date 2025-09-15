@@ -1,12 +1,12 @@
 :root {
-    --bg-color: #121212; /* Fundo preto profundo */
-    --card-bg: #1e1e1e; /* Fundo de card mais claro */
-    --text-color: #e0e0e0; /* Cinza claro para texto */
-    --heading-color: #ffffff; /* Branco puro para títulos */
-    --border-color: #333333; /* Borda de cinza escuro */
-    --accent-color: #00e676; /* Verde fluorescente para destaque */
-    --accent-hover: #00c853; /* Verde um pouco mais escuro para hover */
-    --box-shadow-color: rgba(0, 230, 118, 0.15); /* Sombra com cor de destaque */
+    --bg-color: #121212;
+    --card-bg: #1e1e1e;
+    --text-color: #e0e0e0;
+    --heading-color: #ffffff;
+    --border-color: #333333;
+    --accent-color: #00e676;
+    --accent-hover: #00c853;
+    --box-shadow-color: rgba(0, 230, 118, 0.15);
 }
 
 body {
@@ -76,16 +76,38 @@ label {
     box-shadow: 0 0 0 3px var(--box-shadow-color);
 }
 
+.buttons-container {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: flex-end;
+    margin-top: 10px;
+}
+
+.example-btn {
+    padding: 8px 12px;
+    background-color: #555;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s;
+}
+
+.example-btn:hover {
+    background-color: #777;
+}
+
 #process-button {
     padding: 12px 25px;
     background-color: var(--accent-color);
-    color: var(--card-bg); /* Texto escuro no botão para alto contraste */
+    color: var(--card-bg);
     border: none;
     border-radius: 8px;
     cursor: pointer;
     font-size: 16px;
     font-weight: 700;
-    align-self: flex-end;
     transition: background-color 0.3s, transform 0.2s;
 }
 

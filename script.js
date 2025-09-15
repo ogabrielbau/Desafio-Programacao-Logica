@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // Mapeando os elementos do seu HTML original
     const formulaInput = document.getElementById('formula-input');
     const processButton = document.getElementById('process-button');
     const originalOutput = document.getElementById('original-formula');
@@ -7,21 +8,25 @@ document.addEventListener('DOMContentLoaded', () => {
     const clausalOutput = document.getElementById('clausal-result');
     const hornOutput = document.getElementById('horn-result');
 
-    const sample1Btn = document.getElementById('sample1');
-    const sample2Btn = document.getElementById('sample2');
-    if (sample1Btn) {
-        sample1Btn.addEventListener("click", () => {
-            formulaInput.value = "\\forall x. (R(x) \\to \\exists y. (P(x) \\land Q(y)))";
-            processButton.click();
-        });
-    }
-    if (sample2Btn) {
-        sample2Btn.addEventListener("click", () => {
-            formulaInput.value = "(P \\leftrightarrow Q) \\lor \\neg R";
-            processButton.click();
-        });
-    }
+    // Mapeando os botões de exemplo
+    const example1Btn = document.getElementById('example-1');
+    const example2Btn = document.getElementById('example-2');
+    const example3Btn = document.getElementById('example-3');
 
+    example1Btn.addEventListener('click', () => {
+        formulaInput.value = '(A \\lor B) \\to C';
+        processButton.click();
+    });
+    example2Btn.addEventListener('click', () => {
+        formulaInput.value = '(\\neg P \\land Q) \\leftrightarrow R';
+        processButton.click();
+    });
+    example3Btn.addEventListener('click', () => {
+        formulaInput.value = '\\forall x (P(x) \\land \\exists y Q(y)) \\to R';
+        processButton.click();
+    });
+
+    // Lógica principal
     processButton.addEventListener('click', () => {
         const formula = formulaInput.value.trim();
         if (formula === "") {
@@ -33,24 +38,31 @@ document.addEventListener('DOMContentLoaded', () => {
         gensym = 0;
 
         try {
+            // Lógica do parser e transformações, adaptada do código que você enviou
             const originalAst = parse(formula);
             
+            // Passo a passo das transformações
             const s1 = renameBound(originalAst);
             const s2 = elimImpIff(s1);
             const s3 = nnf(s2);
             
+            // FNDP
             const dnfMatrixAst = dnfMatrix(s3);
             const dnfLatex = dnfToLatex(dnfMatrixAst);
             
+            // FNCP
             const cnfMatrixAst = cnfMatrix(s3);
             const cnfLatex = clausesToLatex(cnfMatrixAst);
 
+            // Forma Clausal (após Skolemização)
             const skolemizedAst = skolemize(s3);
             const skolemizedCNF = cnfMatrix(skolemizedAst);
             const clausalLatex = clausesToLatex(skolemizedCNF);
             
+            // Cláusula de Horn
             const isHorn = checkHornClause(skolemizedCNF);
 
+            // Renderiza os resultados
             renderMath(originalOutput, astToLatex(originalAst));
             renderMath(fncpOutput, cnfLatex);
             renderMath(fndpOutput, dnfLatex);
@@ -65,6 +77,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // Função para renderizar a fórmula usando MathJax
     function renderMath(element, latexString) {
         if (element && latexString) {
             element.innerHTML = '\\(' + latexString + '\\)';
@@ -72,6 +85,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // Função para limpar todas as áreas de resultado
     function clearOutputs() {
         if (originalOutput) originalOutput.innerHTML = '$$ $$';
         if (fncpOutput) fncpOutput.innerHTML = '$$ $$';
