@@ -1,0 +1,142 @@
+:root {
+    --bg-color: #121212; /* Fundo preto profundo */
+    --card-bg: #1e1e1e; /* Fundo de card mais claro */
+    --text-color: #e0e0e0; /* Cinza claro para texto */
+    --heading-color: #ffffff; /* Branco puro para títulos */
+    --border-color: #333333; /* Borda de cinza escuro */
+    --accent-color: #00e676; /* Verde fluorescente para destaque */
+    --accent-hover: #00c853; /* Verde um pouco mais escuro para hover */
+    --box-shadow-color: rgba(0, 230, 118, 0.15); /* Sombra com cor de destaque */
+}
+
+body {
+    font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    margin: 0;
+    padding: 40px 20px;
+    line-height: 1.6;
+}
+
+header, main {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 30px;
+    background: var(--card-bg);
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+header {
+    text-align: center;
+    margin-bottom: 30px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 20px;
+}
+
+header h1 {
+    color: var(--heading-color);
+    font-size: 2.5em;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+header p {
+    color: #b0b0b0;
+    font-size: 1.1em;
+}
+
+.input-section {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 40px;
+}
+
+label {
+    font-weight: 600;
+    color: var(--heading-color);
+}
+
+#formula-input {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background-color: var(--card-bg);
+    color: var(--text-color);
+    transition: border-color 0.3s, box-shadow 0.3s;
+    font-family: monospace;
+    font-size: 1em;
+}
+
+#formula-input:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 3px var(--box-shadow-color);
+}
+
+#process-button {
+    padding: 12px 25px;
+    background-color: var(--accent-color);
+    color: var(--card-bg); /* Texto escuro no botão para alto contraste */
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 700;
+    align-self: flex-end;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+#process-button:hover {
+    background-color: var(--accent-hover);
+    transform: translateY(-2px);
+}
+
+.output-section h2 {
+    color: var(--heading-color);
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+.result-box {
+    margin-bottom: 25px;
+    padding: 20px;
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-left: 5px solid var(--accent-color);
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.result-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+.result-box h3 {
+    margin-top: 0;
+    color: var(--accent-color);
+    font-size: 1.2em;
+    font-weight: 600;
+}
+
+.math-output {
+    font-size: 1.3em;
+    padding-top: 10px;
+    color: var(--text-color);
+    overflow-x: auto;
+}
+
+@media (max-width: 600px) {
+    body {
+        padding: 20px 10px;
+    }
+
+    header, main {
+        padding: 20px;
+    }
+}
