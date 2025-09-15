@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Mapeando os elementos do seu HTML original
     const formulaInput = document.getElementById('formula-input');
     const processButton = document.getElementById('process-button');
     const originalOutput = document.getElementById('original-formula');
@@ -8,23 +7,21 @@ document.addEventListener('DOMContentLoaded', () => {
     const clausalOutput = document.getElementById('clausal-result');
     const hornOutput = document.getElementById('horn-result');
 
-    // Mapeamento dos botões de exemplo (se existirem na sua versão)
     const sample1Btn = document.getElementById('sample1');
     const sample2Btn = document.getElementById('sample2');
     if (sample1Btn) {
         sample1Btn.addEventListener("click", () => {
             formulaInput.value = "\\forall x. (R(x) \\to \\exists y. (P(x) \\land Q(y)))";
-            processButton.click(); // Simula o clique no botão de processar
+            processButton.click();
         });
     }
     if (sample2Btn) {
         sample2Btn.addEventListener("click", () => {
             formulaInput.value = "(P \\leftrightarrow Q) \\lor \\neg R";
-            processButton.click(); // Simula o clique no botão de processar
+            processButton.click();
         });
     }
 
-    // Lógica principal
     processButton.addEventListener('click', () => {
         const formula = formulaInput.value.trim();
         if (formula === "") {
@@ -36,32 +33,24 @@ document.addEventListener('DOMContentLoaded', () => {
         gensym = 0;
 
         try {
-            // Lógica do parser e transformações, adaptada do código que você enviou
             const originalAst = parse(formula);
             
-            // Passo a passo das transformações
             const s1 = renameBound(originalAst);
             const s2 = elimImpIff(s1);
             const s3 = nnf(s2);
             
-            // FNDP
             const dnfMatrixAst = dnfMatrix(s3);
             const dnfLatex = dnfToLatex(dnfMatrixAst);
             
-            // FNCP
             const cnfMatrixAst = cnfMatrix(s3);
             const cnfLatex = clausesToLatex(cnfMatrixAst);
 
-            // Forma Clausal (após Skolemização)
             const skolemizedAst = skolemize(s3);
-            const skolemizedNNF = nnf(skolemizedAst);
-            const skolemizedCNF = cnfMatrix(skolemizedNNF);
+            const skolemizedCNF = cnfMatrix(skolemizedAst);
             const clausalLatex = clausesToLatex(skolemizedCNF);
             
-            // Cláusula de Horn
             const isHorn = checkHornClause(skolemizedCNF);
 
-            // Renderiza os resultados
             renderMath(originalOutput, astToLatex(originalAst));
             renderMath(fncpOutput, cnfLatex);
             renderMath(fndpOutput, dnfLatex);
@@ -76,7 +65,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Função para renderizar a fórmula usando MathJax
     function renderMath(element, latexString) {
         if (element && latexString) {
             element.innerHTML = '\\(' + latexString + '\\)';
@@ -84,7 +72,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Função para limpar todas as áreas de resultado
     function clearOutputs() {
         if (originalOutput) originalOutput.innerHTML = '$$ $$';
         if (fncpOutput) fncpOutput.innerHTML = '$$ $$';
@@ -97,7 +84,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // LÓGICA DE PARSER E TRANSFORMAÇÃO (adaptada do código que você enviou)
     //
 
-    // --------- Tokenizar & Parser ----------
     const TT = {
         FORALL: "FORALL", EXISTS: "EXISTS", NEG: "NEG", AND: "AND", OR: "OR",
         IMP: "IMP", IFF: "IFF", LPAREN: "LPAREN", RPAREN: "RPAREN", DOT: "DOT",
@@ -364,6 +350,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 const R = toCNF(a.right);
                 return merge(L, R);
             }
+            // Retornar o literal diretamente se a estrutura for um único literal
+            if (isLiteral(a)) {
+                return [[litFromAst(a)]];
+            }
             throw new Error("Estrutura inesperada para CNF");
         }
         return toCNF(ast);
@@ -387,6 +377,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 const L = toDNF(a.left);
                 const R = toDNF(a.right);
                 return merge(L, R);
+            }
+            // Retornar o literal diretamente se a estrutura for um único literal
+            if (isLiteral(a)) {
+                return [[litFromAst(a)]];
             }
             throw new Error("Estrutura inesperada para DNF");
         }
