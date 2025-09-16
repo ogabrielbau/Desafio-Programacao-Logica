@@ -1,12 +1,12 @@
 :root {
-    --bg-color: #121212;
-    --card-bg: #1e1e1e;
-    --text-color: #e0e0e0;
-    --heading-color: #ffffff;
-    --border-color: #333333;
-    --accent-color: #e60000;
-    --accent-hover: #ff0000;
-    --box-shadow-color: rgba(0, 230, 118, 0.15);
+    --bg-color: #ffffff;
+    --card-bg: #f9f9f9;
+    --text-color: #222222;
+    --heading-color: #111111;
+    --border-color: #dddddd;
+    --accent-color: #0077cc;
+    --accent-hover: #005fa3;
+    --box-shadow-color: rgba(0, 0, 0, 0.05);
 }
 
 body {
@@ -24,7 +24,7 @@ header, main {
     padding: 30px;
     background: var(--card-bg);
     border-radius: 12px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 8px 20px var(--box-shadow-color);
 }
 
 header {
@@ -36,13 +36,14 @@ header {
 
 header h1 {
     color: var(--heading-color);
-    font-size: 2.5em;
+    font-size: 2.2em;
     font-weight: 700;
     letter-spacing: -0.5px;
+    margin-bottom: 10px;
 }
 
 header p {
-    color: #b0b0b0;
+    color: #555555;
     font-size: 1.1em;
 }
 
@@ -63,46 +64,48 @@ label {
     padding: 15px;
     border: 1px solid var(--border-color);
     border-radius: 8px;
-    background-color: var(--card-bg);
+    background-color: var(--bg-color);
     color: var(--text-color);
-    transition: border-color 0.3s, box-shadow 0.3s;
     font-family: monospace;
     font-size: 1em;
+    transition: border-color 0.3s, box-shadow 0.3s;
 }
 
 #formula-input:focus {
     outline: none;
     border-color: var(--accent-color);
-    box-shadow: 0 0 0 3px var(--box-shadow-color);
+    box-shadow: 0 0 0 3px rgba(0, 119, 204, 0.2);
 }
 
 .buttons-container {
     display: flex;
+    flex-wrap: wrap;
     gap: 10px;
-    align-items: center;
     justify-content: flex-end;
     margin-top: 10px;
 }
 
 .example-btn {
-    padding: 8px 12px;
-    background-color: #555;
-    color: white;
-    border: none;
-    border-radius: 4px;
+    padding: 8px 14px;
+    background-color: #e0e0e0;
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
     cursor: pointer;
     font-size: 14px;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s, transform 0.2s;
 }
 
 .example-btn:hover {
-    background-color: #777;
+    background-color: var(--accent-color);
+    color: #fff;
+    transform: translateY(-2px);
 }
 
 #process-button {
     padding: 12px 25px;
     background-color: var(--accent-color);
-    color: var(--card-bg);
+    color: #fff;
     border: none;
     border-radius: 8px;
     cursor: pointer;
@@ -126,17 +129,17 @@ label {
 .result-box {
     margin-bottom: 25px;
     padding: 20px;
-    background-color: var(--card-bg);
+    background-color: #ffffff;
     border: 1px solid var(--border-color);
     border-left: 5px solid var(--accent-color);
-    border-radius: 8px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    box-shadow: 0 4px 15px var(--box-shadow-color);
     transition: transform 0.3s, box-shadow 0.3s;
 }
 
 .result-box:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
 }
 
 .result-box h3 {
@@ -154,6 +157,11 @@ label {
     min-height: 34px;
 }
 
+#error {
+    color: #cc0000;
+    font-weight: 600;
+}
+
 @media (max-width: 600px) {
     body {
         padding: 20px 10px;
@@ -161,5 +169,9 @@ label {
 
     header, main {
         padding: 20px;
+    }
+
+    .buttons-container {
+        justify-content: center;
     }
 }
