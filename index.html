@@ -1,62 +1,87 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Desafio de Lógica e Renderização</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Desafio de Lógica — FNCP / FNDP / Cláusal / Horn</title>
+
+  <link rel="stylesheet" href="style.css">
+
+  <!-- MathJax -->
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
 <body>
-    <header>
-        <h1>Desafio de Lógica e Renderização</h1>
-        <p>Digite uma fórmula bem formada em LaTeX e veja suas transformações.</p>
-    </header>
+  <header>
+    <h1>Desafio de Lógica e Renderização</h1>
+    <p>Digite uma fórmula bem formada em LaTeX e acompanhe as transformações passo a passo.</p>
+  </header>
 
-    <main>
-        <div class="input-section">
-            <label for="formula-input">Fórmula em LaTeX:</label>
-            <textarea id="formula-input" rows="5" placeholder="\forall x (P(x) \rightarrow Q(x))"></textarea>
-            
-            <div class="buttons-container">
-                <button id="example-1" class="example-btn">Ex. 1 (Implicação)</button>
-                <button id="example-2" class="example-btn">Ex. 2 (Bi-implicação)</button>
-                <button id="example-3" class="example-btn">Ex. 3 (Quantificadores)</button>
-                <button id="process-button" class="main-btn">Processar</button>
-            </div>
-        </div>
+  <main>
+    <div class="input-section">
+      <label for="formula-input">Fórmula em LaTeX:</label>
+      <textarea id="formula-input" rows="5" placeholder="\forall x (P(x) \to Q(x))"></textarea>
 
-        <div class="output-section">
-            <h2>Resultados</h2>
+      <div class="buttons-container">
+        <button id="example-1" class="example-btn">Ex. 1 (Implicação)</button>
+        <button id="example-2" class="example-btn">Ex. 2 (Bi-implicação)</button>
+        <button id="example-3" class="example-btn">Ex. 3 (Quantificadores)</button>
+        <button id="process-button" class="main-btn">Processar</button>
+      </div>
+    </div>
 
-            <div class="result-box">
-                <h3>Fórmula Original</h3>
-                <div id="original-formula" class="math-output"></div>
-            </div>
+    <div class="output-section">
+      <h2>Resultados (passo a passo)</h2>
 
-            <div class="result-box">
-                <h3>Forma Normal Conjuntiva Prenex (FNCP)</h3>
-                <div id="fncp-result" class="math-output"></div>
-            </div>
+      <div class="result-box">
+        <h3>Fórmula Original</h3>
+        <div id="original-formula" class="math-output"></div>
+      </div>
 
-            <div class="result-box">
-                <h3>Forma Normal Disjuntiva Prenex (FNDP)</h3>
-                <div id="fndp-result" class="math-output"></div>
-            </div>
+      <div class="result-box">
+        <h3>Renomear variáveis ligadas (alpha-conversion)</h3>
+        <div id="rename-result" class="math-output"></div>
+      </div>
 
-            <div class="result-box">
-                <h3>Forma Cláusal</h3>
-                <div id="clausal-result" class="math-output"></div>
-            </div>
+      <div class="result-box">
+        <h3>Eliminar → e ↔</h3>
+        <div id="elim-result" class="math-output"></div>
+      </div>
 
-            <div class="result-box">
-                <h3>Cláusula de Horn</h3>
-                <div id="horn-result" class="math-output"></div>
-            </div>
-        </div>
-    </main>
+      <div class="result-box">
+        <h3>Forma Normal Negativa (NNF)</h3>
+        <div id="nnf-result" class="math-output"></div>
+      </div>
 
-    <script src="script.js"></script>
+      <div class="result-box">
+        <h3>Prenex (prefixo + matriz)</h3>
+        <div id="prenex-result" class="math-output"></div>
+      </div>
+
+      <div class="result-box">
+        <h3>Forma Normal Conjuntiva Prenex (FNCP)</h3>
+        <div id="fncp-result" class="math-output"></div>
+      </div>
+
+      <div class="result-box">
+        <h3>Forma Normal Disjuntiva Prenex (FNDP)</h3>
+        <div id="fndp-result" class="math-output"></div>
+      </div>
+
+      <div class="result-box">
+        <h3>Forma Cláusal (após Skolemização)</h3>
+        <div id="clausal-result" class="math-output"></div>
+      </div>
+
+      <div class="result-box">
+        <h3>Cláusula de Horn</h3>
+        <div id="horn-result" class="math-output"></div>
+      </div>
+
+      <div id="error" class="result-box" style="color:#ff8080"></div>
+    </div>
+  </main>
+
+  <script src="script.js"></script>
 </body>
 </html>
